@@ -66,6 +66,78 @@
 }
 </script>
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://fatura.passagem.app/#organizacao",
+      "name": "Minimal Software",
+      "url": "https://passagem.app",
+      "logo": "https://fatura.passagem.app/images/logotipo.png",
+      "email": "admin@passagem.app",
+      "telephone": "+55-65-98174-0102",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Porto Alegre",
+        "addressRegion": "RS",
+        "addressCountry": "BR"
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://fatura.passagem.app/#site",
+      "name": "Fatura Passagem",
+      "url": "https://fatura.passagem.app/",
+      "inLanguage": "pt-BR",
+      "publisher": { "@id": "https://fatura.passagem.app/#organizacao" }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://fatura.passagem.app/#software",
+      "name": "Fatura Passagem",
+      "url": "https://fatura.passagem.app/",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Emissão e faturamento de passagens para agências de turismo",
+      "operatingSystem": "Web (qualquer navegador)",
+      "inLanguage": "pt-BR",
+      "description": "Software web para agências de passagens terrestres e aéreas que vendem em volume para clientes PJ. Emite bilhetes com taxa de serviço automática, controla OCDs (Ordem de Crédito de Devolução) e fecha o mês com uma fatura consolidada por cliente, pronta para envio por e-mail com boleto e nota fiscal anexados.",
+      "image": "https://fatura.passagem.app/images/geracao%20de%20nova%20fatura.png",
+      "screenshot": "https://fatura.passagem.app/images/geracao%20de%20nova%20fatura.png",
+      "publisher": { "@id": "https://fatura.passagem.app/#organizacao" },
+      "provider": { "@id": "https://fatura.passagem.app/#organizacao" },
+      "audience": {
+        "@type": "BusinessAudience",
+        "name": "Agências de passagens terrestres e aéreas que faturam clientes corporativos (PJ)"
+      },
+      "featureList": [
+        "Emissão de bilhetes (somente ida ou ida e volta) com passageiro, companhia, poltrona, data e tarifa",
+        "Cálculo automático da taxa de serviço sobre a tarifa no cadastro da passagem",
+        "Faturamento consolidado por cliente e período, com numeração e vencimento",
+        "Controle de OCD — Ordem de Crédito de Devolução, entrando como desconto na fatura",
+        "Lançamento de taxas avulsas, como taxa de desistência",
+        "Geração de PDF da fatura e do voucher da passagem",
+        "Envio da fatura por e-mail com boleto e nota fiscal anexados",
+        "Status de fatura enviada e quitada, com consultas e relatórios de passagens e faturamento",
+        "Cadastros de clientes, passageiros, companhias, cidades e usuários",
+        "Sistema 100% web: funciona no PC, tablet e celular, sem instalação"
+      ],
+      "offers": {
+        "@type": "Offer",
+        "priceCurrency": "BRL",
+        "priceSpecification": {
+          "@type": "PriceSpecification",
+          "description": "Preço sob consulta, conforme o porte da agência e o volume de passagens."
+        },
+        "availability": "https://schema.org/InStock",
+        "url": "https://fatura.passagem.app/"
+      }
+    }
+  ]
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />

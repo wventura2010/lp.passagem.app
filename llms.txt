@@ -1,0 +1,52 @@
+# Fatura Passagem
+
+> Software web para agências de passagens terrestres e aéreas que vendem em volume para clientes PJ. A agência emite os bilhetes com taxa de serviço calculada automaticamente, controla devoluções (OCD) e, no fim do mês, fecha tudo em uma fatura consolidada por cliente, pronta para enviar por e-mail com boleto e nota fiscal anexados.
+
+- Feito por: Minimal Software (Porto Alegre/RS, Brasil)
+- Site: https://fatura.passagem.app/
+- Acesso ao sistema: https://passagem.app
+- Contato: admin@passagem.app · WhatsApp +55 65 98174-0102
+- Idioma: português do Brasil
+
+## O que resolve
+
+- Fim do fechamento mensal no Excel: seleciona cliente + período e a fatura sai pronta com todas as passagens.
+- Taxa de serviço (margem da agência sobre a tarifa) calculada automaticamente no cadastro de cada bilhete, sem conta de cabeça.
+- Controle de OCD (Ordem de Crédito de Devolução): passagem devolvida entra com valor negativo, abatendo o total da fatura do cliente.
+- Controle de taxas avulsas (ex.: taxa de desistência), status de fatura enviada e quitada, e relatórios de passagens e faturamento.
+
+## Como funciona
+
+1. Solicita — o cliente PJ pede passagens ao longo do mês; a agência registra o pedido com passageiro, trecho e data.
+2. Emite — a agência cadastra o bilhete com origem, destino e tarifa; a taxa de serviço é somada automaticamente e o voucher pode ser enviado ao passageiro.
+3. Fatura — no fim do mês, escolhe o cliente e o período; o sistema junta todas as passagens (menos OCDs, mais taxas) em uma fatura única e gera o PDF para envio por e-mail.
+
+## Recursos
+
+- Emissão de bilhetes (somente ida ou ida e volta) com passageiro, companhia, poltrona, data e tarifa
+- Taxa de serviço automática sobre a tarifa
+- Faturamento consolidado por cliente e período, com numeração e vencimento
+- OCD — crédito de devolução, entrando como desconto na fatura
+- Taxas avulsas
+- Geração de PDF de fatura e de voucher
+- Envio da fatura por e-mail com boleto e nota fiscal anexados
+- Status de fatura enviada e quitada, consultas e relatórios
+- Cadastros de clientes, passageiros, companhias, cidades e usuários (agentes e administradores)
+- 100% web: PC, tablet e celular, sem instalação
+
+## Para quem é
+
+Agências de turismo e de passagens (rodoviárias e aéreas) que vendem em volume para empresas e precisam faturar cada cliente PJ uma vez por mês, de forma consolidada.
+
+## Limites
+
+- Não gera boleto nem nota fiscal — esses documentos continuam saindo dos sistemas atuais da agência; o Fatura Passagem apenas anexa os dois à fatura e envia tudo junto ao cliente.
+
+## Preço
+
+Sob consulta, conforme o porte da agência e o volume de passagens. Orçamento pelo WhatsApp +55 65 98174-0102.
+
+## Glossário
+
+- OCD (Ordem de Crédito de Devolução): registro de uma passagem devolvida pela companhia. A agência controla quando será faturada; na fatura, entra com valor negativo, gerando desconto para o cliente.
+- Taxa de serviço: margem que a agência cobra sobre a tarifa da passagem.

@@ -132,38 +132,38 @@
     <p class="mt-4 text-sm text-navy/50">Publicado em 8 de setembro de 2026 · Minimal Software</p>
 
     <p class="mt-8 text-lg leading-relaxed text-navy/80">
-      <strong>OCD</strong> é a sigla para <strong>Ordem de Crédito de Devolução</strong>: o registro de uma passagem que foi devolvida pela companhia de transporte. Em vez de a agência perder o controle desse valor, a passagem devolvida vira uma OCD — um crédito que fica registrado até ser abatido na fatura do cliente correspondente.
+      <strong>OCD</strong> é a sigla para <strong>Ordem de Crédito de Devolução</strong>: o crédito que a agência registra quando uma passagem é devolvida pela companhia. Em vez de esse valor se perder no meio da operação, ele fica guardado, vinculado ao cliente, até ser abatido em uma fatura.
     </p>
 
     <h2 class="mt-10 text-2xl font-bold text-navy">O que é uma OCD, na prática</h2>
     <p class="mt-3 leading-relaxed text-navy/70">
-      Quando uma empresa cliente cancela ou devolve uma passagem já emitida, a companhia de transporte estorna (total ou parcialmente) o valor pago. Esse estorno não deveria simplesmente desaparecer do controle da agência — ele precisa virar um crédito rastreável, vinculado ao cliente que tem direito a ele. É exatamente isso que uma OCD registra: quanto foi devolvido, de qual passagem, e para qual cliente.
+      Quando uma empresa cliente cancela ou devolve uma passagem já emitida, a companhia estorna o valor pago, total ou parcialmente. Esse dinheiro é do cliente, mas volta primeiro para a agência — e é aí que costuma se perder de vista. A OCD existe justamente para não deixar isso solto: ela guarda quanto foi devolvido, de qual passagem e de qual cliente, até o valor entrar em uma fatura.
     </p>
 
     <h2 class="mt-10 text-2xl font-bold text-navy">Quando uma OCD é gerada</h2>
     <p class="mt-3 leading-relaxed text-navy/70">Os casos mais comuns em agências que vendem passagens terrestres e aéreas para clientes PJ:</p>
     <ul class="mt-4 list-disc space-y-2 pl-6 text-navy/70">
       <li>O passageiro desiste da viagem e a passagem é cancelada com direito a reembolso (total ou parcial, dependendo da tarifa e do prazo).</li>
-      <li>A companhia cancela o trecho ou o horário, e o valor é devolvido à agência.</li>
+      <li>A companhia cancela o trecho ou o horário e devolve o valor à agência.</li>
       <li>Houve um erro no cadastro da passagem (tarifa errada, trecho errado) e é preciso estornar o valor lançado antes de corrigir.</li>
     </ul>
 
     <h2 class="mt-10 text-2xl font-bold text-navy">Como a OCD entra na fatura do cliente</h2>
     <p class="mt-3 leading-relaxed text-navy/70">
-      No fechamento mensal, a agência junta todas as passagens emitidas para aquele cliente no período. Se existir alguma OCD pendente daquele cliente, ela entra na mesma fatura com <strong>valor negativo</strong>, funcionando como desconto sobre o total. O cliente recebe uma fatura única, já com o crédito da devolução aplicado — sem precisar de um boleto ou nota de crédito separada.
+      No fechamento mensal, a agência junta todas as passagens emitidas para aquele cliente no período. Se houver uma OCD pendente, ela entra na mesma fatura com <strong>valor negativo</strong>, gerando desconto sobre o total. O cliente recebe uma fatura única, já com o crédito da devolução aplicado — sem boleto nem nota de crédito à parte.
     </p>
 
-    <h2 class="mt-10 text-2xl font-bold text-navy">OCD não é a mesma coisa que simplesmente cancelar a passagem</h2>
+    <h2 class="mt-10 text-2xl font-bold text-navy">OCD não é a mesma coisa que cancelar a passagem</h2>
     <p class="mt-3 leading-relaxed text-navy/70">
-      Cancelar uma passagem no sistema apenas apaga ou marca o registro como cancelado — o valor não é necessariamente rastreado depois disso. A OCD é diferente: ela representa um crédito que a agência ainda precisa aplicar em algum momento, às vezes em um fechamento de mês diferente daquele em que a passagem foi originalmente emitida. Por isso ela precisa de controle próprio, com data de registro e status de "faturada" ou "pendente" — não dá pra confiar só na memória ou em uma célula de planilha.
+      Cancelar uma passagem no sistema só marca o registro como cancelado; o valor estornado não fica preso a ninguém. A OCD é diferente: ela fica em aberto, esperando a hora de virar desconto — e essa hora pode chegar num mês diferente daquele em que a passagem foi emitida. Por isso precisa de controle próprio, com data e status de pendente ou faturada. Uma célula de planilha não segura isso por muito tempo.
     </p>
 
     <h2 class="mt-10 text-2xl font-bold text-navy">Como o Fatura Passagem automatiza o controle de OCD</h2>
     <p class="mt-3 leading-relaxed text-navy/70">
-      No <a href="/" class="text-brand underline hover:no-underline">Fatura Passagem</a>, cada passagem devolvida gera uma OCD cadastrada com cliente, valor e data. A agência decide quando aquela OCD entra em uma fatura — o sistema já aplica automaticamente o desconto quando o cliente e o período são selecionados no fechamento, sem precisar caçar em planilhas quais devoluções ainda estão pendentes de cada cliente.
+      No <a href="/" class="text-brand underline hover:no-underline">Fatura Passagem</a>, cada passagem devolvida gera uma OCD com cliente, valor e data. A agência decide quando ela entra em uma fatura, e o desconto é aplicado sozinho assim que o cliente e o período são escolhidos no fechamento — sem caçar em planilha quais devoluções ainda estão pendentes.
     </p>
     <p class="mt-4 leading-relaxed text-navy/70">
-      Quer ver esse controle funcionando com um exemplo da sua operação? Veja mais em <a href="/#faq" class="text-brand underline hover:no-underline">dúvidas frequentes</a> ou fale com a gente.
+      Quer ver o controle de OCD funcionando com um exemplo da sua operação? <a href="#" data-wa class="text-brand underline hover:no-underline">Fale com a gente</a> ou veja antes as <a href="/#faq" class="text-brand underline hover:no-underline">dúvidas frequentes</a>.
     </p>
 
     <div class="mt-10">

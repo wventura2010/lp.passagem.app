@@ -2,10 +2,10 @@
 
 > Software web para agências de passagens terrestres e aéreas que vendem em volume para clientes PJ. A agência emite os bilhetes com taxa de serviço calculada automaticamente, controla devoluções (OCD) e, no fim do mês, fecha tudo em uma fatura consolidada por cliente, pronta para enviar por e-mail com boleto e nota fiscal anexados.
 
-- Feito por: Minimal Software (Porto Alegre/RS, Brasil)
+- Feito por: Minimal Software (Porto Alegre/RS, Brasil) — CNPJ 66.763.413/0001-36
 - Site: https://fatura.passagem.app/
 - Acesso ao sistema: https://passagem.app
-- Contato: admin@passagem.app · WhatsApp +55 65 98174-0102
+- Contato: admin@passagem.app · WhatsApp +55 65 99982-6225
 - Idioma: português do Brasil
 
 ## O que resolve
@@ -44,7 +44,7 @@ Agências de turismo e de passagens (rodoviárias e aéreas) que vendem em volum
 
 ## Preço
 
-Sob consulta, conforme o porte da agência e o volume de passagens. Orçamento pelo WhatsApp +55 65 98174-0102.
+Sob consulta, conforme o porte da agência e o volume de passagens. Orçamento pelo WhatsApp +55 65 99982-6225.
 
 ## Glossário
 

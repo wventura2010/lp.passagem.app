@@ -4,6 +4,7 @@
 
 - Feito por: Minimal Software (Porto Alegre/RS, Brasil) — CNPJ 66.763.413/0001-36
 - Site: https://fatura.passagem.app/
+- Blog: https://fatura.passagem.app/blog/
 - Acesso ao sistema: https://passagem.app
 - Contato: admin@passagem.app · WhatsApp +55 65 99982-6225
 - Idioma: português do Brasil

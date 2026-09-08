@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>OCD: o que é Ordem de Crédito de Devolução? | Fatura Passagem</title>
+<meta name="description" content="Entenda o que é uma OCD (Ordem de Crédito de Devolução), quando ela é gerada e como ela entra automaticamente como desconto na fatura do cliente." />
+<link rel="canonical" href="https://fatura.passagem.app/blog/ocd-ordem-credito-devolucao/" />
+
+<meta property="og:type" content="article" />
+<meta property="og:title" content="OCD: o que é Ordem de Crédito de Devolução e como lançar na fatura do cliente" />
+<meta property="og:description" content="Entenda o que é uma OCD (Ordem de Crédito de Devolução), quando ela é gerada e como ela entra automaticamente como desconto na fatura do cliente." />
+<meta property="og:url" content="https://fatura.passagem.app/blog/ocd-ordem-credito-devolucao/" />
+<meta property="og:image" content="https://fatura.passagem.app/images/cadastro%20de%20OCD%20-%20Ordem%20de%20Cr%C3%A9dito%20de%20Devolu%C3%A7%C3%A3o.png" />
+<meta name="twitter:card" content="summary_large_image" />
+
+<link rel="icon" href="/images/logotipo.png" />
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "OCD: o que é Ordem de Crédito de Devolução e como lançar na fatura do cliente",
+  "description": "Entenda o que é uma OCD (Ordem de Crédito de Devolução), quando ela é gerada e como ela entra automaticamente como desconto na fatura do cliente.",
+  "datePublished": "2026-09-08",
+  "dateModified": "2026-09-08",
+  "inLanguage": "pt-BR",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://fatura.passagem.app/blog/ocd-ordem-credito-devolucao/"
+  },
+  "author": {
+    "@type": "Organization",
+    "name": "Minimal Software",
+    "url": "https://passagem.app"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Minimal Software",
+    "url": "https://passagem.app",
+    "taxID": "66.763.413/0001-36",
+    "identifier": {
+      "@type": "PropertyValue",
+      "propertyID": "CNPJ",
+      "value": "66763413000136"
+    },
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://fatura.passagem.app/images/logotipo.png"
+    }
+  },
+  "image": "https://fatura.passagem.app/images/cadastro%20de%20OCD%20-%20Ordem%20de%20Cr%C3%A9dito%20de%20Devolu%C3%A7%C3%A3o.png"
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          navy: { DEFAULT: '#0E1A3F', 900: '#0A1330', 800: '#0E1A3F', 700: '#182a5e' },
+          brand: { DEFAULT: '#1B39B8', 600: '#1B39B8', 500: '#2f4fd6', 400: '#5f77e6' },
+          mint: { DEFAULT: '#22C55E', 600: '#16a34a' },
+          wa: { DEFAULT: '#25D366', 600: '#1EBE5D', 700: '#128C7E' },
+          paper: '#F5F7FB',
+        },
+        fontFamily: {
+          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        },
+        boxShadow: {
+          soft: '0 10px 40px -12px rgba(14,26,63,0.18)',
+          card: '0 2px 12px -2px rgba(14,26,63,0.10)',
+        },
+      },
+    },
+  };
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { -webkit-font-smoothing: antialiased; }
+</style>
+</head>
+<body class="font-sans text-navy bg-white">
+
+<!-- ============ HEADER ============ -->
+<header id="top" class="fixed inset-x-0 top-0 z-50 border-b border-navy/10 bg-white/85 backdrop-blur">
+  <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
+    <a href="/" class="flex items-center gap-2.5">
+      <img src="/images/logotipo.png" alt="Fatura Passagem" class="h-9 w-9 rounded-full" />
+      <span class="text-lg font-extrabold tracking-tight">Fatura Passagem</span>
+    </a>
+
+    <nav class="hidden items-center gap-8 text-sm font-medium text-navy/70 md:flex">
+      <a href="/#como-funciona" class="hover:text-navy">Como funciona</a>
+      <a href="/#recursos" class="hover:text-navy">Recursos</a>
+      <a href="/#telas" class="hover:text-navy">Telas</a>
+      <a href="/blog/" class="hover:text-navy">Blog</a>
+      <a href="/#faq" class="hover:text-navy">Dúvidas</a>
+    </nav>
+
+    <a href="https://passagem.app"
+       class="hidden items-center gap-2 rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-500 md:inline-flex">
+      Entrar
+    </a>
+
+    <button id="menuBtn" class="md:hidden" aria-label="Abrir menu">
+      <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+  </div>
+
+  <div id="mobileMenu" class="hidden border-t border-navy/10 bg-white px-5 py-4 md:hidden">
+    <div class="flex flex-col gap-3 text-sm font-medium text-navy/80">
+      <a href="/#como-funciona" class="py-1">Como funciona</a>
+      <a href="/#recursos" class="py-1">Recursos</a>
+      <a href="/#telas" class="py-1">Telas</a>
+      <a href="/blog/" class="py-1">Blog</a>
+      <a href="/#faq" class="py-1">Dúvidas</a>
+      <a href="#" data-wa class="mt-2 rounded-full bg-wa px-5 py-2.5 text-center font-semibold text-white">Falar no WhatsApp</a>
+    </div>
+  </div>
+</header>
+
+<main class="pt-16">
+  <article class="mx-auto max-w-3xl px-5 py-16 md:py-20">
+    <p class="text-sm font-bold uppercase tracking-wider text-brand">Faturamento e devoluções</p>
+    <h1 class="mt-3 text-3xl font-black tracking-tight text-navy sm:text-4xl">OCD: o que é Ordem de Crédito de Devolução e como lançar na fatura do cliente</h1>
+    <p class="mt-4 text-sm text-navy/50">Publicado em 8 de setembro de 2026 · Minimal Software</p>
+
+    <p class="mt-8 text-lg leading-relaxed text-navy/80">
+      <strong>OCD</strong> é a sigla para <strong>Ordem de Crédito de Devolução</strong>: o registro de uma passagem que foi devolvida pela companhia de transporte. Em vez de a agência perder o controle desse valor, a passagem devolvida vira uma OCD — um crédito que fica registrado até ser abatido na fatura do cliente correspondente.
+    </p>
+
+    <h2 class="mt-10 text-2xl font-bold text-navy">O que é uma OCD, na prática</h2>
+    <p class="mt-3 leading-relaxed text-navy/70">
+      Quando uma empresa cliente cancela ou devolve uma passagem já emitida, a companhia de transporte estorna (total ou parcialmente) o valor pago. Esse estorno não deveria simplesmente desaparecer do controle da agência — ele precisa virar um crédito rastreável, vinculado ao cliente que tem direito a ele. É exatamente isso que uma OCD registra: quanto foi devolvido, de qual passagem, e para qual cliente.
+    </p>
+
+    <h2 class="mt-10 text-2xl font-bold text-navy">Quando uma OCD é gerada</h2>
+    <p class="mt-3 leading-relaxed text-navy/70">Os casos mais comuns em agências que vendem passagens terrestres e aéreas para clientes PJ:</p>
+    <ul class="mt-4 list-disc space-y-2 pl-6 text-navy/70">
+      <li>O passageiro desiste da viagem e a passagem é cancelada com direito a reembolso (total ou parcial, dependendo da tarifa e do prazo).</li>
+      <li>A companhia cancela o trecho ou o horário, e o valor é devolvido à agência.</li>
+      <li>Houve um erro no cadastro da passagem (tarifa errada, trecho errado) e é preciso estornar o valor lançado antes de corrigir.</li>
+    </ul>
+
+    <h2 class="mt-10 text-2xl font-bold text-navy">Como a OCD entra na fatura do cliente</h2>
+    <p class="mt-3 leading-relaxed text-navy/70">
+      No fechamento mensal, a agência junta todas as passagens emitidas para aquele cliente no período. Se existir alguma OCD pendente daquele cliente, ela entra na mesma fatura com <strong>valor negativo</strong>, funcionando como desconto sobre o total. O cliente recebe uma fatura única, já com o crédito da devolução aplicado — sem precisar de um boleto ou nota de crédito separada.
+    </p>
+
+    <h2 class="mt-10 text-2xl font-bold text-navy">OCD não é a mesma coisa que simplesmente cancelar a passagem</h2>
+    <p class="mt-3 leading-relaxed text-navy/70">
+      Cancelar uma passagem no sistema apenas apaga ou marca o registro como cancelado — o valor não é necessariamente rastreado depois disso. A OCD é diferente: ela representa um crédito que a agência ainda precisa aplicar em algum momento, às vezes em um fechamento de mês diferente daquele em que a passagem foi originalmente emitida. Por isso ela precisa de controle próprio, com data de registro e status de "faturada" ou "pendente" — não dá pra confiar só na memória ou em uma célula de planilha.
+    </p>
+
+    <h2 class="mt-10 text-2xl font-bold text-navy">Como o Fatura Passagem automatiza o controle de OCD</h2>
+    <p class="mt-3 leading-relaxed text-navy/70">
+      No <a href="/" class="text-brand underline hover:no-underline">Fatura Passagem</a>, cada passagem devolvida gera uma OCD cadastrada com cliente, valor e data. A agência decide quando aquela OCD entra em uma fatura — o sistema já aplica automaticamente o desconto quando o cliente e o período são selecionados no fechamento, sem precisar caçar em planilhas quais devoluções ainda estão pendentes de cada cliente.
+    </p>
+    <p class="mt-4 leading-relaxed text-navy/70">
+      Quer ver esse controle funcionando com um exemplo da sua operação? Veja mais em <a href="/#faq" class="text-brand underline hover:no-underline">dúvidas frequentes</a> ou fale com a gente.
+    </p>
+
+    <div class="mt-10">
+      <a href="#" data-wa
+         class="inline-flex items-center justify-center gap-2 rounded-full bg-wa px-7 py-3.5 text-base font-semibold text-white shadow-soft transition hover:bg-wa-600">
+        Falar no WhatsApp
+      </a>
+    </div>
+  </article>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="border-t border-white/10 bg-black text-white">
+  <div class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
+    <div class="flex items-center gap-2.5">
+      <img src="/images/logotipo.png" alt="Fatura Passagem" class="h-8 w-8 rounded-full" />
+      <span class="font-extrabold text-white">Fatura Passagem</span>
+    </div>
+    <nav class="text-sm font-medium text-white/70">
+      <a href="/blog/" class="hover:text-white">Blog</a>
+    </nav>
+    <div class="text-sm text-white/60">
+      <p><span class="font-semibold text-white/85">Minimal Software</span> · Porto Alegre/RS</p>
+      <p class="mt-1">CNPJ 66.763.413/0001-36</p>
+      <p class="mt-1">
+        <a href="mailto:admin@passagem.app" class="hover:text-white">admin@passagem.app</a>
+        <span class="mx-2 text-white/30">·</span>
+        <a href="#" data-wa class="hover:text-white">WhatsApp (65) 99982-6225</a>
+      </p>
+    </div>
+    <p class="text-xs text-white/40">© <span id="year"></span> Fatura Passagem</p>
+  </div>
+</footer>
+
+<script>
+  // WhatsApp links
+  var WA_NUMBER = '5565999826225';
+  var WA_TEXT = encodeURIComponent('Olá! Vim pelo blog do Fatura Passagem e quero saber mais sobre o sistema para minha agência.');
+  var waHref = 'https://wa.me/' + WA_NUMBER + '?text=' + WA_TEXT;
+  document.querySelectorAll('[data-wa]').forEach(function (a) {
+    a.setAttribute('href', waHref);
+    a.setAttribute('target', '_blank');
+    a.setAttribute('rel', 'noopener');
+  });
+
+  // Year
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // Mobile menu
+  var menuBtn = document.getElementById('menuBtn');
+  var mobileMenu = document.getElementById('mobileMenu');
+  menuBtn.addEventListener('click', function () { mobileMenu.classList.toggle('hidden'); });
+  mobileMenu.querySelectorAll('a').forEach(function (a) {
+    a.addEventListener('click', function () { mobileMenu.classList.add('hidden'); });
+  });
+</script>
+</body>
+</html>

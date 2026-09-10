@@ -147,7 +147,7 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
 
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
@@ -155,18 +155,17 @@
     theme: {
       extend: {
         colors: {
-          navy: { DEFAULT: '#0E1A3F', 900: '#0A1330', 800: '#0E1A3F', 700: '#182a5e' },
-          brand: { DEFAULT: '#1B39B8', 600: '#1B39B8', 500: '#2f4fd6', 400: '#5f77e6' },
-          mint: { DEFAULT: '#22C55E', 600: '#16a34a' },
-          wa: { DEFAULT: '#25D366', 600: '#1EBE5D', 700: '#128C7E' },
-          paper: '#F5F7FB',
+          paper: '#EEF1F6',
+          ink: { DEFAULT: '#12161D', 700: '#38414f', 500: '#5b6675' },
+          royal: { DEFAULT: '#1E3FC7', 600: '#1E3FC7', 700: '#1830a0', 900: '#111E63' },
+          stamp: '#B3261E',
+          paid: '#0E7C5A',
+          wa: { DEFAULT: '#25D366', 600: '#1EBE5D' },
         },
         fontFamily: {
-          sans: ['Inter', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        },
-        boxShadow: {
-          soft: '0 10px 40px -12px rgba(14,26,63,0.18)',
-          card: '0 2px 12px -2px rgba(14,26,63,0.10)',
+          display: ['"Bricolage Grotesque"', 'Inter', 'system-ui', 'sans-serif'],
+          sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
         },
       },
     },
@@ -174,379 +173,421 @@
 </script>
 <style>
   html { scroll-behavior: smooth; }
-  body { -webkit-font-smoothing: antialiased; }
-  .reveal { opacity: 0; transform: translateY(18px); transition: opacity .6s ease, transform .6s ease; }
-  .reveal.is-visible { opacity: 1; transform: none; }
-  .grid-bg {
-    background-image:
-      linear-gradient(rgba(255,255,255,0.06) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(255,255,255,0.06) 1px, transparent 1px);
-    background-size: 44px 44px;
+  body { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+  html, body { max-width: 100%; overflow-x: clip; }
+  h1, h2, h3 { font-feature-settings: "ss02" 1; }
+
+  /* focus */
+  a:focus-visible, button:focus-visible, summary:focus-visible {
+    outline: 2px solid #1E3FC7;
+    outline-offset: 3px;
+    border-radius: 2px;
   }
+
+  /* fatura sheet */
+  .sheet { box-shadow: 0 32px 64px -28px rgba(17,30,99,0.45), 0 4px 12px -4px rgba(17,30,99,0.12); }
+  .sheet .stamp {
+    font-family: '"Bricolage Grotesque"', sans-serif;
+    letter-spacing: 0.08em;
+    color: #0E7C5A;
+    border: 2px solid #0E7C5A;
+    border-radius: 4px;
+    transform: rotate(-7deg);
+    opacity: 0.85;
+  }
+  .lead-dots { border-bottom: 1px dotted rgba(18,22,29,0.28); }
+
+  /* one motion moment: statement lines print in (visible by default; JS arms the effect) */
+  .pl { opacity: 1; transform: none; }
+  html.js .sheet.armed .pl { opacity: 0; transform: translateY(7px); }
+  html.js .sheet.armed .pl.in { opacity: 1; transform: none; transition: opacity .4s ease, transform .4s ease; }
+
+  /* FAQ toggle */
   details > summary { list-style: none; }
   details > summary::-webkit-details-marker { display: none; }
-  details[open] .faq-icon { transform: rotate(45deg); }
+  details[open] .faq-plus { transform: rotate(45deg); }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    html.js .sheet.armed .pl { opacity: 1; transform: none; }
+    * { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+  }
 </style>
 </head>
-<body class="font-sans text-navy bg-white">
+<body class="overflow-x-hidden bg-paper font-sans text-ink">
+
+<a href="#conteudo" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[70] focus:rounded-lg focus:bg-royal focus:px-4 focus:py-2 focus:text-sm focus:font-semibold focus:text-white">Pular para o conteúdo</a>
 
 <!-- ============ HEADER ============ -->
-<header id="top" class="fixed inset-x-0 top-0 z-50 border-b border-navy/10 bg-white/85 backdrop-blur">
+<header id="top" class="fixed inset-x-0 top-0 z-50 border-t-[3px] border-royal bg-white/95 backdrop-blur-sm transition-shadow" data-header>
   <div class="mx-auto flex max-w-6xl items-center justify-between px-5 py-3.5">
     <a href="#top" class="flex items-center gap-2.5">
-      <img src="images/logotipo.png" alt="Fatura Passagem" class="h-9 w-9 rounded-full" />
-      <span class="text-lg font-extrabold tracking-tight">Fatura Passagem</span>
+      <img src="images/logotipo.png" alt="" class="h-7 w-7 rounded-md" />
+      <span class="font-display text-[1.15rem] font-semibold tracking-tight">Fatura&nbsp;Passagem<span class="text-royal">.</span></span>
     </a>
 
-    <nav class="hidden items-center gap-8 text-sm font-medium text-navy/70 md:flex">
-      <a href="#como-funciona" class="hover:text-navy">Como funciona</a>
-      <a href="#recursos" class="hover:text-navy">Recursos</a>
-      <a href="#telas" class="hover:text-navy">Telas</a>
-      <a href="/blog/" class="hover:text-navy">Blog</a>
-      <a href="#faq" class="hover:text-navy">Dúvidas</a>
+    <nav class="hidden items-center gap-7 text-[0.9rem] text-ink-700 lg:flex">
+      <a href="#como-funciona" class="transition-colors hover:text-ink">Como funciona</a>
+      <a href="#recursos" class="transition-colors hover:text-ink">Recursos</a>
+      <a href="#telas" class="transition-colors hover:text-ink">Telas</a>
+      <a href="/blog/" class="transition-colors hover:text-ink">Blog</a>
+      <a href="#faq" class="transition-colors hover:text-ink">Dúvidas</a>
     </nav>
 
-    <a href="https://passagem.app"
-       class="hidden items-center gap-2 rounded-full bg-brand px-6 py-2.5 text-sm font-semibold text-white shadow-soft transition hover:bg-brand-500 md:inline-flex">
-      Entrar
-    </a>
+    <div class="hidden items-center gap-2.5 lg:flex">
+      <a href="https://passagem.app" class="rounded-lg bg-royal-900 px-4 py-2 text-[0.9rem] font-semibold text-white transition-colors hover:bg-royal">Entrar</a>
+      <a href="#" data-wa class="rounded-lg bg-wa px-4 py-2 text-[0.9rem] font-semibold text-white transition-colors hover:bg-wa-600">Falar no WhatsApp</a>
+    </div>
 
-    <button id="menuBtn" class="md:hidden" aria-label="Abrir menu">
+    <button id="menuBtn" class="lg:hidden" aria-label="Abrir menu" aria-expanded="false" aria-controls="mobileMenu">
       <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M4 7h16M4 12h16M4 17h16"/></svg>
     </button>
   </div>
 
-  <div id="mobileMenu" class="hidden border-t border-navy/10 bg-white px-5 py-4 md:hidden">
-    <div class="flex flex-col gap-3 text-sm font-medium text-navy/80">
-      <a href="#como-funciona" class="py-1">Como funciona</a>
-      <a href="#recursos" class="py-1">Recursos</a>
-      <a href="#telas" class="py-1">Telas</a>
-      <a href="/blog/" class="py-1">Blog</a>
-      <a href="#faq" class="py-1">Dúvidas</a>
-      <a href="https://passagem.app" class="mt-2 rounded-full bg-brand px-5 py-2.5 text-center font-semibold text-white transition hover:bg-brand-500">Entrar</a>
-      <a href="#" data-wa class="rounded-full bg-wa px-5 py-2.5 text-center font-semibold text-white">Falar no WhatsApp</a>
+  <div id="mobileMenu" class="hidden border-t border-ink/10 bg-white px-5 py-4 lg:hidden">
+    <div class="flex flex-col gap-1 text-[0.95rem] font-medium">
+      <a href="#como-funciona" class="py-2">Como funciona</a>
+      <a href="#recursos" class="py-2">Recursos</a>
+      <a href="#telas" class="py-2">Telas</a>
+      <a href="/blog/" class="py-2">Blog</a>
+      <a href="#faq" class="py-2">Dúvidas</a>
+      <div class="mt-3 grid gap-2.5">
+        <a href="https://passagem.app" class="rounded-lg bg-royal-900 px-5 py-2.5 text-center font-semibold text-white">Entrar</a>
+        <a href="#" data-wa class="rounded-lg bg-wa px-5 py-2.5 text-center font-semibold text-white">Falar no WhatsApp</a>
+      </div>
     </div>
   </div>
 </header>
 
-<main class="pt-16">
+<main id="conteudo" class="pt-[3.75rem]">
 
   <!-- ============ HERO ============ -->
-  <section class="relative overflow-hidden bg-navy text-white">
-    <div class="absolute inset-0 grid-bg opacity-60"></div>
-    <div class="absolute -right-40 -top-40 h-96 w-96 rounded-full bg-brand/30 blur-3xl"></div>
-    <div class="absolute -bottom-40 -left-40 h-96 w-96 rounded-full bg-brand/20 blur-3xl"></div>
+  <section class="mx-auto max-w-6xl px-5 pb-16 pt-14 md:pt-20 lg:pb-24">
+    <h1 class="max-w-[42rem] font-display leading-[1.08] tracking-[-0.015em] lg:leading-[1.05]" style="font-size:clamp(2rem,6vw,3.5rem)">
+      <span class="block font-bold text-ink-700">Seu faturamento de passagens, muito mais simples</span>
+      <span class="block font-normal text-ink-700">Mais controle para sua agência.</span>
+    </h1>
 
-    <div class="relative mx-auto grid max-w-6xl items-center gap-14 px-5 py-20 md:py-28 lg:grid-cols-[1.05fr_1fr]">
-      <div>
-        <span class="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3.5 py-1.5 text-xs font-medium text-white/80">
-          <span class="h-1.5 w-1.5 rounded-full bg-mint"></span>
-          Para agências de passagens terrestres e aéreas
-        </span>
-        <h1 class="mt-6 text-4xl font-black leading-[1.08] tracking-tight sm:text-5xl lg:text-6xl">
-          Emita e fature passagens corporativas <span class="text-brand-400">chega de planilhas!!</span>.
-        </h1>
-        <p class="mt-6 max-w-xl text-lg leading-relaxed text-white">
-          O cliente solicita, a agência emite o bilhete, cadastra no sistema, no fim do mês, fecha tudo em uma
-          fatura consolidada e envia para o cliente. A taxa de serviço é calculada na hora,
-          OCDs abatidas automaticamente, boleto e nota fiscal anexados no envio.
-        </p>
-        <div class="mt-9 flex flex-col gap-3 sm:flex-row">
-          <a href="#" data-wa
-             class="inline-flex items-center justify-center gap-2 rounded-full bg-wa px-7 py-3.5 text-base font-semibold text-white shadow-soft transition hover:bg-wa-600">
-            <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42l-.48-.01c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
-            Falar no WhatsApp
-          </a>
-          <a href="#como-funciona"
-             class="inline-flex items-center justify-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-base font-semibold text-white/90 transition hover:bg-white/5">
-            Ver como funciona
-          </a>
-        </div>
-        <p class="mt-6 flex flex-wrap items-center gap-x-6 gap-y-2 text-sm text-white">
-          <span class="flex items-center gap-2"><svg class="h-4 w-4 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Ideal para agências de turismo</span>
-          <span class="flex items-center gap-2"><svg class="h-4 w-4 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Dispensa o uso de planilhas</span>
-          <span class="flex items-center gap-2"><svg class="h-4 w-4 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Relatórios diversos</span>
-        </p>
+    <div class="mt-10 grid grid-cols-1 items-start gap-x-12 gap-y-10 lg:mt-12 lg:grid-cols-[1fr_0.92fr]">
+    <div class="min-w-0">
+      <p class="max-w-[52ch] text-[1.02rem] leading-relaxed text-ink/85">
+        Selecione o cliente e o período. O sistema reúne os bilhetes, calcula as taxas, desconta as devoluções e gera a fatura para envio.
+      </p>
+
+      <div class="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
+        <a href="#" data-wa
+           class="inline-flex items-center justify-center gap-2.5 rounded-lg bg-wa px-6 py-3.5 text-[0.98rem] font-semibold text-white transition-colors hover:bg-wa-600">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42l-.48-.01c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+          Falar no WhatsApp
+        </a>
+        <a href="#como-funciona"
+           class="inline-flex items-center justify-center rounded-lg bg-royal px-6 py-3.5 text-[0.98rem] font-semibold text-white transition-colors hover:bg-royal-700">
+          Ver como funciona
+        </a>
       </div>
 
-      <div class="relative">
-        <div class="absolute -inset-4 rounded-3xl bg-brand/20 blur-2xl"></div>
-        <figure class="relative overflow-hidden rounded-2xl border border-white/10 bg-white shadow-soft">
-          <div class="flex items-center gap-1.5 border-b border-navy/10 bg-paper px-4 py-2.5">
-            <span class="h-2.5 w-2.5 rounded-full bg-navy/15"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-navy/15"></span>
-            <span class="h-2.5 w-2.5 rounded-full bg-navy/15"></span>
+      <p class="mt-7 max-w-[46ch] text-[0.9rem] leading-relaxed text-ink-500">
+        Feito para agências de turismo que vendem passagens em volume para empresas.
+        Roda no navegador, sem instalar nada.
+      </p>
+    </div>
+
+    <!-- the fatura, full size -->
+    <div class="min-w-0 lg:pl-4">
+      <figure class="sheet mx-auto w-full max-w-[400px] overflow-hidden rounded-xl border border-ink/10 bg-white lg:ml-auto lg:mr-0 lg:-mt-28 lg:-mb-16">
+        <figcaption class="bg-royal px-5 py-4 text-white">
+          <div class="flex items-baseline justify-between gap-2 font-mono text-[0.68rem] uppercase tracking-[0.1em] text-white/75">
+            <span>Fatura consolidada</span><span class="shrink-0">nº&nbsp;0042</span>
           </div>
-          <img src="images/passagens.png" alt="Tela de passagens do Fatura Passagem listando bilhetes emitidos" class="w-full" loading="eager" />
-        </figure>
+          <div class="mt-1.5 font-display text-lg font-semibold">Consórcio Mendes</div>
+          <div class="font-mono text-[0.72rem] text-white/70">Competência: agosto de 2026</div>
+        </figcaption>
+
+        <div class="divide-y divide-ink/10 px-5 font-mono text-[0.76rem] text-ink-700">
+          <div class="pl grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 py-2.5">
+            <span class="text-ink-500">20/08</span><span class="min-w-0 truncate">Belo Horizonte → Goiânia</span><span class="tabular-nums text-ink">303,79</span>
+          </div>
+          <div class="pl grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 py-2.5">
+            <span class="text-ink-500">21/08</span><span class="min-w-0 truncate">Goiânia → Piranhas</span><span class="tabular-nums text-ink">137,28</span>
+          </div>
+          <div class="pl grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 py-2.5">
+            <span class="text-ink-500">23/08</span><span class="min-w-0 truncate">Piranhas → Paulo Afonso</span><span class="tabular-nums text-ink">846,73</span>
+          </div>
+          <div class="pl grid grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-2.5 py-2.5">
+            <span class="text-ink-500">28/08</span><span class="min-w-0 truncate">Recife → Piranhas</span><span class="tabular-nums text-ink">913,67</span>
+          </div>
+          <div class="pl py-2.5 text-[0.7rem] italic text-ink-500">+ 10 passagens no período</div>
+        </div>
+
+        <div class="space-y-1.5 border-t border-ink/10 px-5 py-4 font-mono text-[0.76rem]">
+          <div class="pl flex items-baseline justify-between gap-2">
+            <span class="lead-dots min-w-0 flex-1 truncate pr-2 text-ink-700">Passagens</span><span class="shrink-0 tabular-nums">9.265,94</span>
+          </div>
+          <div class="pl flex items-baseline justify-between gap-2">
+            <span class="lead-dots min-w-0 flex-1 truncate pr-2 text-ink-700">Taxa de serviço</span><span class="shrink-0 tabular-nums">+926,59</span>
+          </div>
+          <div class="pl flex items-baseline justify-between gap-2 text-stamp">
+            <span class="lead-dots min-w-0 flex-1 truncate pr-2" style="border-color:rgba(179,38,30,0.3)">OCD — devolução</span><span class="shrink-0 tabular-nums">−846,73</span>
+          </div>
+        </div>
+
+        <div class="relative flex items-baseline justify-between gap-2 bg-paper px-5 py-4">
+          <span class="font-display text-sm font-semibold uppercase tracking-wide text-ink-700">Total</span>
+          <span class="font-display text-2xl font-bold tabular-nums">R$&nbsp;9.345,80</span>
+          <span class="stamp absolute right-4 top-1 px-2 py-0.5 text-[0.6rem] font-bold uppercase">quitada</span>
+        </div>
+      </figure>
+    </div>
+    </div>
+  </section>
+
+  <!-- ============ O PROBLEMA ============ -->
+  <section class="border-t border-ink/10 bg-white">
+    <div class="mx-auto max-w-2xl px-5 py-20 md:py-24">
+      <h2 class="font-display text-[1.6rem] font-bold tracking-[-0.01em] sm:text-[2rem] md:text-4xl">O que pesa no fechamento do mês</h2>
+      <p class="mt-3 text-ink-500">As três coisas que mais consomem tempo de quem vende passagem em volume para empresas.</p>
+
+      <div class="mt-12 divide-y divide-ink/10">
+        <div class="py-7 first:pt-0">
+          <h3 class="flex items-start gap-3 text-[1.05rem] font-semibold">
+            <span class="mt-px select-none font-mono text-lg font-semibold leading-none text-stamp" aria-hidden="true">−</span>
+            Montar a fatura de cada cliente na mão
+          </h3>
+          <p class="mt-1.5 pl-[1.65rem] text-[0.92rem] leading-relaxed text-ink-500">Juntar as passagens do mês, somar e formatar um PDF. Repetir para cada empresa.</p>
+          <p class="mt-3 ml-[1.65rem] flex items-start gap-3 border-l-2 border-royal/40 pl-3 text-[0.92rem] leading-relaxed text-ink">
+            <span class="select-none font-mono text-lg font-semibold leading-none text-royal" aria-hidden="true">+</span>
+            Escolha o cliente e o período: a fatura sai pronta, com todas as passagens.
+          </p>
+        </div>
+
+        <div class="py-7">
+          <h3 class="flex items-start gap-3 text-[1.05rem] font-semibold">
+            <span class="mt-px select-none font-mono text-lg font-semibold leading-none text-stamp" aria-hidden="true">−</span>
+            Refazer a conta da taxa de serviço a cada bilhete
+          </h3>
+          <p class="mt-1.5 pl-[1.65rem] text-[0.92rem] leading-relaxed text-ink-500">A margem sobre a tarifa fica por conta da memória e da digitação.</p>
+          <p class="mt-3 ml-[1.65rem] flex items-start gap-3 border-l-2 border-royal/40 pl-3 text-[0.92rem] leading-relaxed text-ink">
+            <span class="select-none font-mono text-lg font-semibold leading-none text-royal" aria-hidden="true">+</span>
+            A taxa entra sozinha sobre a tarifa, na hora de cadastrar a passagem.
+          </p>
+        </div>
+
+        <div class="py-7">
+          <h3 class="flex items-start gap-3 text-[1.05rem] font-semibold">
+            <span class="mt-px select-none font-mono text-lg font-semibold leading-none text-stamp" aria-hidden="true">−</span>
+            Perder o fio das devoluções e dos pagamentos
+          </h3>
+          <p class="mt-1.5 pl-[1.65rem] text-[0.92rem] leading-relaxed text-ink-500">OCD, taxa de desistência, quem já pagou, o que já foi enviado por e-mail.</p>
+          <p class="mt-3 ml-[1.65rem] flex items-start gap-3 border-l-2 border-royal/40 pl-3 text-[0.92rem] leading-relaxed text-ink">
+            <span class="select-none font-mono text-lg font-semibold leading-none text-royal" aria-hidden="true">+</span>
+            A OCD abate na fatura e cada fatura mostra se foi enviada e quitada.
+          </p>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- ============ DOR -> SOLUÇÃO ============ -->
-  <section class="mx-auto max-w-6xl px-5 py-20 md:py-24">
-    <div class="reveal mx-auto max-w-2xl text-center">
-      <h2 class="text-3xl font-black tracking-tight sm:text-4xl">O fechamento do mês não precisa ser no Excel</h2>
-      <p class="mt-4 text-lg text-navy/60">Quem vende passagem em volume para empresas conhece essas três dores.</p>
-    </div>
+  <!-- ============ COMO FUNCIONA (sequência) ============ -->
+  <section id="como-funciona" class="scroll-mt-24 border-t border-ink/10">
+    <div class="mx-auto max-w-5xl px-5 py-20 md:py-24">
+      <h2 class="font-display text-[1.6rem] font-bold tracking-[-0.01em] sm:text-[2rem] md:text-4xl">Do pedido ao pagamento, em três etapas</h2>
 
-    <div class="mt-14 grid gap-6 md:grid-cols-3">
-      <article class="reveal rounded-2xl border border-navy/10 bg-white p-7 shadow-card">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-red-50 text-red-500">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-6h6v6M3 7h18M5 7v12a2 2 0 002 2h10a2 2 0 002-2V7"/></svg>
-        </div>
-        <h3 class="mt-5 font-bold">Faturar cliente por cliente na mão</h3>
-        <p class="mt-2 text-sm leading-relaxed text-navy/60">Juntar todas as passagens do mês de cada empresa em uma planilha, somar e formatar um PDF — toda vez.</p>
-        <hr class="my-5 border-navy/10" />
-        <p class="flex gap-2 text-sm font-medium text-navy"><svg class="mt-0.5 h-4 w-4 shrink-0 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> Selecione cliente + período e a fatura sai pronta, com todas as passagens.</p>
-      </article>
-
-      <article class="reveal rounded-2xl border border-navy/10 bg-white p-7 shadow-card">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-amber-50 text-amber-500">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
-        </div>
-        <h3 class="mt-5 font-bold">Calcular a taxa de serviço a cada bilhete</h3>
-        <p class="mt-2 text-sm leading-relaxed text-navy/60">A margem da agência sobre a tarifa fica sujeita a erro de digitação e conta de cabeça.</p>
-        <hr class="my-5 border-navy/10" />
-        <p class="flex gap-2 text-sm font-medium text-navy"><svg class="mt-0.5 h-4 w-4 shrink-0 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> O sistema aplica a taxa sobre a tarifa automaticamente ao cadastrar a passagem.</p>
-      </article>
-
-      <article class="reveal rounded-2xl border border-navy/10 bg-white p-7 shadow-card">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-sky-50 text-sky-500">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
-        </div>
-        <h3 class="mt-5 font-bold">Perder o controle de devoluções e pagamentos</h3>
-        <p class="mt-2 text-sm leading-relaxed text-navy/60">OCDs de passagens devolvidas, taxa de desistência, quem já pagou, o que já foi enviado por e-mail.</p>
-        <hr class="my-5 border-navy/10" />
-        <p class="flex gap-2 text-sm font-medium text-navy"><svg class="mt-0.5 h-4 w-4 shrink-0 text-mint" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg> OCD entra como desconto na fatura; status de "enviada" e "quitada" em cada fatura.</p>
-      </article>
-    </div>
-  </section>
-
-  <!-- ============ COMO FUNCIONA ============ -->
-  <section id="como-funciona" class="bg-paper py-20 md:py-24">
-    <div class="mx-auto max-w-6xl px-5">
-      <div class="reveal mx-auto max-w-2xl text-center">
-        <span class="text-sm font-bold uppercase tracking-wider text-brand">Como funciona</span>
-        <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Do pedido ao pagamento em três passos</h2>
-      </div>
-
-      <div class="relative mt-16 grid gap-10 md:grid-cols-3">
-        <div class="pointer-events-none absolute left-0 right-0 top-7 hidden h-px bg-navy/15 md:block"></div>
-
-        <div class="reveal relative text-center md:text-left">
-          <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-navy text-xl font-black text-white md:mx-0">1</div>
-          <h3 class="mt-5 text-lg font-bold">Solicita</h3>
-          <p class="mt-2 text-sm leading-relaxed text-navy/60">O cliente PJ pede passagens ao longo do mês. A agência registra o pedido com passageiro, trecho e data da viagem.</p>
-        </div>
-
-        <div class="reveal relative text-center md:text-left">
-          <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-navy text-xl font-black text-white md:mx-0">2</div>
-          <h3 class="mt-5 text-lg font-bold">Emite</h3>
-          <p class="mt-2 text-sm leading-relaxed text-navy/60">A agência cadastra o bilhete com origem, destino e tarifa. A taxa de serviço é somada automaticamente e o voucher pode ser enviado ao passageiro.</p>
-        </div>
-
-        <div class="reveal relative text-center md:text-left">
-          <div class="mx-auto grid h-14 w-14 place-items-center rounded-2xl bg-brand text-xl font-black text-white md:mx-0">3</div>
-          <h3 class="mt-5 text-lg font-bold">Fatura</h3>
-          <p class="mt-2 text-sm leading-relaxed text-navy/60">No fim do mês, escolha o cliente e o período: o sistema junta todas as passagens (menos OCDs, mais taxas) em uma fatura e gera o PDF para envio por e-mail.</p>
-        </div>
-      </div>
+      <ol class="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+        <li class="relative md:pt-10">
+          <span class="absolute left-0 top-0 hidden h-px w-full bg-ink/15 md:block" aria-hidden="true"></span>
+          <span class="font-display text-4xl font-bold text-royal">1</span>
+          <h3 class="mt-3 text-lg font-semibold">Solicita</h3>
+          <p class="mt-2 text-[0.92rem] leading-relaxed text-ink-500">O cliente PJ pede passagens ao longo do mês. A agência registra cada pedido com passageiro, trecho e data da viagem.</p>
+        </li>
+        <li class="relative md:pt-10">
+          <span class="absolute left-0 top-0 hidden h-px w-full bg-ink/15 md:block" aria-hidden="true"></span>
+          <span class="font-display text-4xl font-bold text-royal">2</span>
+          <h3 class="mt-3 text-lg font-semibold">Emite</h3>
+          <p class="mt-2 text-[0.92rem] leading-relaxed text-ink-500">A agência cadastra o bilhete com origem, destino e tarifa. A taxa de serviço é somada automaticamente e o voucher vai para o passageiro.</p>
+        </li>
+        <li class="relative md:pt-10">
+          <span class="absolute left-0 top-0 hidden h-px w-full bg-royal md:block" aria-hidden="true"></span>
+          <span class="font-display text-4xl font-bold text-royal">3</span>
+          <h3 class="mt-3 text-lg font-semibold">Fatura</h3>
+          <p class="mt-2 text-[0.92rem] leading-relaxed text-ink-500">No fim do mês, escolha o cliente e o período. O sistema junta as passagens, desconta OCDs, soma taxas avulsas e gera o PDF para enviar por e-mail.</p>
+        </li>
+      </ol>
     </div>
   </section>
 
   <!-- ============ RECURSOS ============ -->
-  <section id="recursos" class="bg-paper py-20 md:py-24">
-   <div class="mx-auto max-w-6xl px-5">
-    <div class="reveal mx-auto max-w-2xl text-center">
-      <span class="text-sm font-bold uppercase tracking-wider text-brand">Recursos</span>
-      <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Tudo que a operação de uma agência precisa</h2>
-      <p class="mt-4 text-lg text-navy/60">Sem módulos que você nunca vai usar.</p>
-    </div>
+  <section id="recursos" class="scroll-mt-24 border-t border-ink/10 bg-white">
+    <div class="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <h2 class="font-display text-[1.6rem] font-bold tracking-[-0.01em] sm:text-[2rem] md:text-4xl">Tudo o que a operação da agência precisa</h2>
+      <p class="mt-3 max-w-[50ch] text-ink-500">Sem módulos que você nunca vai abrir.</p>
 
-    <div class="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-      <!-- item -->
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+      <div class="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 10h18M7 15h1m4 0h1m-7 4h12a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Emissão de bilhetes</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Somente ida ou ida e volta, com passageiro, companhia, poltrona, data da viagem e tarifa.</p>
         </div>
-        <h3 class="mt-4 font-bold">Emissão de bilhetes</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Somente ida ou ida e volta, com passageiro, companhia, poltrona, data da viagem e tarifa.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Taxa de serviço automática</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">A margem da agência é calculada sobre a tarifa no momento do cadastro da passagem.</p>
         </div>
-        <h3 class="mt-4 font-bold">Taxa de serviço automática</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">A margem da agência é calculada sobre a tarifa no momento do cadastro da passagem.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Faturamento consolidado</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Cliente e período, e todas as passagens viram uma fatura única, com numeração e vencimento.</p>
         </div>
-        <h3 class="mt-4 font-bold">Faturamento consolidado</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Cliente + período e todas as passagens viram uma fatura única, com numeração e vencimento.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-mint/20 to-mint/5 text-mint-600 shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l-4-4 4-4m-4 4h11a4 4 0 014 4v2"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 14l-4-4 4-4m-4 4h11a4 4 0 014 4v2"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">OCD — crédito de devolução</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Passagem devolvida vira uma OCD que entra com valor negativo, abatendo o total da fatura do cliente.</p>
         </div>
-        <h3 class="mt-4 font-bold">OCD — crédito de devolução</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Passagem devolvida vira uma OCD que entra com valor negativo, abatendo o total da fatura do cliente.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Taxas avulsas</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Taxa de desistência e outros lançamentos pontuais entram na fatura do cliente.</p>
         </div>
-        <h3 class="mt-4 font-bold">Taxas avulsas</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Taxa de desistência e outros lançamentos pontuais entram na fatura do cliente.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">PDF de fatura e voucher</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Gere o PDF da fatura para o cliente e o voucher da passagem para o passageiro.</p>
         </div>
-        <h3 class="mt-4 font-bold">PDF de fatura e voucher</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Gere o PDF da fatura para o cliente e o voucher da passagem para o passageiro.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Envio por e-mail com anexos</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">O sistema não gera boleto nem nota fiscal, mas anexa os dois à fatura e envia tudo junto ao cliente.</p>
         </div>
-        <h3 class="mt-4 font-bold">Envio por e-mail com anexos</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">O sistema não gera boleto nem nota fiscal, mas anexa os dois à fatura e envia tudo junto ao cliente.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Controle e relatórios</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Status de fatura enviada e quitada, mais consultas e relatórios gerais de passagens e faturamento.</p>
         </div>
-        <h3 class="mt-4 font-bold">Controle e relatórios</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Status de fatura enviada e quitada, mais consultas e relatórios gerais de passagens e faturamento.</p>
-      </div>
 
-      <div class="reveal rounded-2xl border border-navy/5 bg-white p-6 shadow-soft ring-1 ring-navy/5 transition duration-300 hover:-translate-y-1 hover:shadow-[0_20px_45px_-15px_rgba(14,26,63,0.28)]">
-        <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-brand/15 to-brand/5 text-brand shadow-sm">
-          <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+        <div class="rounded-xl border border-ink/10 bg-white p-6 shadow-[0_2px_12px_-4px_rgba(17,30,99,0.12)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_18px_40px_-16px_rgba(17,30,99,0.28)]">
+          <div class="grid h-11 w-11 place-items-center rounded-xl bg-gradient-to-br from-royal/15 to-royal/5 text-royal">
+            <svg class="h-5 w-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17 20h5v-2a3 3 0 00-5.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/></svg>
+          </div>
+          <h3 class="mt-4 font-semibold">Cadastros completos</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-ink-500">Clientes, passageiros, companhias, cidades e usuários (agentes e administradores).</p>
         </div>
-        <h3 class="mt-4 font-bold">Cadastros completos</h3>
-        <p class="mt-1.5 text-sm leading-relaxed text-navy/60">Clientes, passageiros, companhias, cidades e usuários (agentes e administradores).</p>
       </div>
     </div>
-   </div>
   </section>
 
   <!-- ============ TELAS ============ -->
-  <section id="telas" class="bg-navy py-20 text-white md:py-24">
-    <div class="mx-auto max-w-6xl px-5">
-      <div class="reveal mx-auto max-w-2xl text-center">
-        <span class="text-sm font-bold uppercase tracking-wider text-brand-400">Telas do sistema</span>
-        <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Veja o Fatura Passagem por dentro</h2>
-        <p class="mt-4 text-lg text-white/60">Clique para ampliar.</p>
-      </div>
+  <section id="telas" class="scroll-mt-24 bg-royal-900 text-white">
+    <div class="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <h2 class="font-display text-[1.6rem] font-bold tracking-[-0.01em] sm:text-[2rem] md:text-4xl">O sistema por dentro</h2>
+      <p class="mt-3 text-white/60">Clique em qualquer tela para ampliar.</p>
 
-      <div class="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-        <button class="shot group reveal overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left" data-full="images/passagens.png">
-          <img src="images/passagens.png" alt="Lista de passagens emitidas" loading="lazy" class="w-full transition duration-300 group-hover:scale-[1.02]" />
-          <span class="block px-4 py-3 text-sm font-medium text-white/80">Passagens emitidas</span>
+      <div class="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        <button class="shot group overflow-hidden rounded-lg border border-white/12 bg-white/5 text-left" data-full="images/passagens.png">
+          <img src="images/passagens.png" alt="Lista de passagens emitidas" loading="lazy" class="w-full transition duration-300 group-hover:opacity-90" />
+          <span class="block px-4 py-3 text-[0.85rem] text-white/75">Passagens emitidas</span>
         </button>
-
-        <button class="shot group reveal overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left" data-full="images/nova%20passagem.png">
-          <img src="images/nova%20passagem.png" alt="Formulário de nova passagem" loading="lazy" class="w-full transition duration-300 group-hover:scale-[1.02]" />
-          <span class="block px-4 py-3 text-sm font-medium text-white/80">Nova passagem</span>
+        <button class="shot group overflow-hidden rounded-lg border border-white/12 bg-white/5 text-left" data-full="images/nova%20passagem.png">
+          <img src="images/nova%20passagem.png" alt="Formulário de nova passagem" loading="lazy" class="w-full transition duration-300 group-hover:opacity-90" />
+          <span class="block px-4 py-3 text-[0.85rem] text-white/75">Nova passagem</span>
         </button>
-
-        <button class="shot group reveal overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left" data-full="images/geracao%20de%20nova%20fatura.png">
-          <img src="images/geracao%20de%20nova%20fatura.png" alt="Geração de nova fatura consolidada" loading="lazy" class="w-full transition duration-300 group-hover:scale-[1.02]" />
-          <span class="block px-4 py-3 text-sm font-medium text-white/80">Gerar fatura</span>
+        <button class="shot group overflow-hidden rounded-lg border border-white/12 bg-white/5 text-left" data-full="images/geracao%20de%20nova%20fatura.png">
+          <img src="images/geracao%20de%20nova%20fatura.png" alt="Geração de nova fatura consolidada" loading="lazy" class="w-full transition duration-300 group-hover:opacity-90" />
+          <span class="block px-4 py-3 text-[0.85rem] text-white/75">Gerar fatura</span>
         </button>
-
-        <button class="shot group reveal overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left" data-full="images/consulta%20de%20faturas.png">
-          <img src="images/consulta%20de%20faturas.png" alt="Consulta de faturas" loading="lazy" class="w-full transition duration-300 group-hover:scale-[1.02]" />
-          <span class="block px-4 py-3 text-sm font-medium text-white/80">Consulta de faturas</span>
+        <button class="shot group overflow-hidden rounded-lg border border-white/12 bg-white/5 text-left" data-full="images/consulta%20de%20faturas.png">
+          <img src="images/consulta%20de%20faturas.png" alt="Consulta de faturas" loading="lazy" class="w-full transition duration-300 group-hover:opacity-90" />
+          <span class="block px-4 py-3 text-[0.85rem] text-white/75">Consulta de faturas</span>
         </button>
-
-        <button class="shot group reveal overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left" data-full="images/relatorio%20das%20faturas.png">
-          <img src="images/relatorio%20das%20faturas.png" alt="Relatório das faturas" loading="lazy" class="w-full transition duration-300 group-hover:scale-[1.02]" />
-          <span class="block px-4 py-3 text-sm font-medium text-white/80">Relatório das faturas</span>
+        <button class="shot group overflow-hidden rounded-lg border border-white/12 bg-white/5 text-left" data-full="images/relatorio%20das%20faturas.png">
+          <img src="images/relatorio%20das%20faturas.png" alt="Relatório das faturas" loading="lazy" class="w-full transition duration-300 group-hover:opacity-90" />
+          <span class="block px-4 py-3 text-[0.85rem] text-white/75">Relatório das faturas</span>
         </button>
-
-        <button class="shot group reveal overflow-hidden rounded-xl border border-white/10 bg-white/5 text-left" data-full="images/cadastro%20de%20OCD%20-%20Ordem%20de%20Cr%C3%A9dito%20de%20Devolu%C3%A7%C3%A3o.png">
-          <img src="images/cadastro%20de%20OCD%20-%20Ordem%20de%20Cr%C3%A9dito%20de%20Devolu%C3%A7%C3%A3o.png" alt="Cadastro de OCD - Ordem de Crédito de Devolução" loading="lazy" class="w-full transition duration-300 group-hover:scale-[1.02]" />
-          <span class="block px-4 py-3 text-sm font-medium text-white/80">Cadastro de OCD</span>
+        <button class="shot group overflow-hidden rounded-lg border border-white/12 bg-white/5 text-left" data-full="images/cadastro%20de%20OCD%20-%20Ordem%20de%20Cr%C3%A9dito%20de%20Devolu%C3%A7%C3%A3o.png">
+          <img src="images/cadastro%20de%20OCD%20-%20Ordem%20de%20Cr%C3%A9dito%20de%20Devolu%C3%A7%C3%A3o.png" alt="Cadastro de OCD, Ordem de Crédito de Devolução" loading="lazy" class="w-full transition duration-300 group-hover:opacity-90" />
+          <span class="block px-4 py-3 text-[0.85rem] text-white/75">Cadastro de OCD</span>
         </button>
       </div>
     </div>
   </section>
 
   <!-- ============ FAQ ============ -->
-  <section id="faq" class="mx-auto max-w-3xl px-5 py-20 md:py-24">
-    <div class="reveal text-center">
-      <span class="text-sm font-bold uppercase tracking-wider text-brand">Dúvidas frequentes</span>
-      <h2 class="mt-3 text-3xl font-black tracking-tight sm:text-4xl">Perguntas comuns</h2>
-    </div>
+  <section id="faq" class="scroll-mt-24 border-t border-ink/10 bg-white">
+    <div class="mx-auto max-w-3xl px-5 py-20 md:py-24">
+      <h2 class="font-display text-[1.6rem] font-bold tracking-[-0.01em] sm:text-[2rem] md:text-4xl">Dúvidas</h2>
 
-    <div class="mt-12 divide-y divide-navy/10 border-y border-navy/10">
-      <details class="reveal group py-5">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold">
-          O Fatura Passagem gera boleto e nota fiscal?
-          <span class="faq-icon grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy/5 text-navy transition"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-navy/65">Não. O boleto e a nota fiscal continuam saindo dos seus sistemas atuais. O que o Fatura Passagem faz é permitir anexar os dois à fatura e enviar tudo junto ao cliente por e-mail.</p>
-      </details>
-
-      <details class="reveal group py-5">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold">
-          Funciona no celular e no tablet?
-          <span class="faq-icon grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy/5 text-navy transition"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-navy/65">Sim. É um sistema web: abre em qualquer navegador com internet, no PC, no tablet ou no celular. Não precisa instalar nada.</p>
-      </details>
-
-      <details class="reveal group py-5">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold">
-          Como é a cobrança?
-          <span class="faq-icon grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy/5 text-navy transition"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-navy/65">Depende do porte da agência e do volume de passagens. Chame no WhatsApp que a gente monta uma proposta para o seu caso.</p>
-      </details>
-
-      <details class="reveal group py-5">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold">
-          O que é uma OCD?
-          <span class="faq-icon grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy/5 text-navy transition"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-navy/65">Ordem de Crédito de Devolução. Quando uma passagem é devolvida pela companhia, você registra uma OCD e controla quando ela será faturada. Na fatura, ela entra com valor negativo, gerando desconto para o cliente.</p>
-      </details>
-
-      <details class="reveal group py-5">
-        <summary class="flex cursor-pointer items-center justify-between gap-4 text-lg font-semibold">
-          Consigo migrar minha base de clientes?
-          <span class="faq-icon grid h-7 w-7 shrink-0 place-items-center rounded-full bg-navy/5 text-navy transition"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
-        </summary>
-        <p class="mt-3 text-navy/65">Sim. Fale com a gente sobre o formato dos seus dados atuais e ajudamos na importação inicial de clientes.* </p>
-        <p class="mt-3 text-navy/65">* Serviço mediante pagamento adicional, solicite o orçamento.</p>
-      </details>
+      <div class="mt-10">
+        <details class="group border-t border-ink/12 py-5">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-[1.02rem] font-semibold">
+            O Fatura Passagem gera boleto e nota fiscal?
+            <span class="faq-plus grid h-6 w-6 shrink-0 place-items-center text-ink-500 transition-transform" aria-hidden="true"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 leading-relaxed text-ink-700">Não. O boleto e a nota fiscal continuam saindo dos seus sistemas atuais. O que o Fatura Passagem faz é permitir anexar os dois à fatura e enviar tudo junto ao cliente por e-mail.</p>
+        </details>
+        <details class="group border-t border-ink/12 py-5">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-[1.02rem] font-semibold">
+            Funciona no celular e no tablet?
+            <span class="faq-plus grid h-6 w-6 shrink-0 place-items-center text-ink-500 transition-transform" aria-hidden="true"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 leading-relaxed text-ink-700">Sim. É um sistema web: abre em qualquer navegador com internet, no PC, no tablet ou no celular. Não precisa instalar nada.</p>
+        </details>
+        <details class="group border-t border-ink/12 py-5">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-[1.02rem] font-semibold">
+            Como é a cobrança?
+            <span class="faq-plus grid h-6 w-6 shrink-0 place-items-center text-ink-500 transition-transform" aria-hidden="true"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 leading-relaxed text-ink-700">Depende do porte da agência e do volume de passagens. Chame no WhatsApp que a gente monta uma proposta para o seu caso.</p>
+        </details>
+        <details class="group border-t border-ink/12 py-5">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-[1.02rem] font-semibold">
+            O que é uma OCD?
+            <span class="faq-plus grid h-6 w-6 shrink-0 place-items-center text-ink-500 transition-transform" aria-hidden="true"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 leading-relaxed text-ink-700">Ordem de Crédito de Devolução. Quando uma passagem é devolvida pela companhia, você registra uma OCD e controla quando ela será faturada. Na fatura, ela entra com valor negativo, gerando desconto para o cliente.</p>
+        </details>
+        <details class="group border-y border-ink/12 py-5">
+          <summary class="flex cursor-pointer items-center justify-between gap-4 text-[1.02rem] font-semibold">
+            Consigo migrar minha base de clientes?
+            <span class="faq-plus grid h-6 w-6 shrink-0 place-items-center text-ink-500 transition-transform" aria-hidden="true"><svg class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" d="M12 5v14M5 12h14"/></svg></span>
+          </summary>
+          <p class="mt-3 leading-relaxed text-ink-700">Sim. Fale com a gente sobre o formato dos seus dados atuais e ajudamos na importação inicial de clientes.</p>
+          <p class="mt-2 text-[0.85rem] text-ink-500">Serviço mediante pagamento adicional, solicite o orçamento.</p>
+        </details>
+      </div>
     </div>
   </section>
 
   <!-- ============ CTA FINAL ============ -->
-  <section class="relative overflow-hidden bg-navy py-20 text-white md:py-24">
-    <div class="absolute inset-0 grid-bg opacity-50"></div>
-    <div class="absolute left-1/2 top-1/2 h-80 w-80 -translate-x-1/2 -translate-y-1/2 rounded-full bg-brand/25 blur-3xl"></div>
-    <div class="relative mx-auto max-w-3xl px-5 text-center">
-      <h2 class="reveal text-3xl font-black tracking-tight sm:text-4xl">Pare de fechar o mês na planilha</h2>
-      <p class="reveal mx-auto mt-4 max-w-xl text-lg text-white/70">Mostramos o Fatura Passagem funcionando com um exemplo real da sua operação. Sem compromisso.</p>
-      <div class="reveal mt-9">
+  <section class="bg-royal text-white">
+    <div class="mx-auto max-w-3xl px-5 py-20 text-center md:py-24">
+      <h2 class="font-display text-[2rem] font-bold leading-tight tracking-[-0.01em] sm:text-[2.6rem]">Feche o próximo mês sem abrir o excel</h2>
+      <p class="mx-auto mt-4 max-w-xl text-white/80">Mostramos o Fatura Passagem com um exemplo da sua operação. Sem compromisso.</p>
+      <div class="mt-9">
         <a href="#" data-wa
-           class="inline-flex items-center justify-center gap-2 rounded-full bg-wa px-8 py-4 text-base font-semibold text-white shadow-soft transition hover:bg-wa-600">
-          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42l-.48-.01c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
-          Falar no WhatsApp agora
+           class="inline-flex items-center justify-center gap-2.5 rounded-lg bg-wa px-7 py-4 text-[1rem] font-semibold text-white shadow-lg shadow-black/10 transition-colors hover:bg-wa-600">
+          <svg viewBox="0 0 24 24" class="h-5 w-5 fill-current" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91S17.5 2 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.24 8.24 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24 2.2 0 4.27.86 5.83 2.42a8.19 8.19 0 0 1 2.41 5.83c0 4.55-3.7 8.24-8.24 8.24Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.16.25-.64.81-.79.97-.14.17-.29.19-.54.06-.25-.12-1.05-.39-1.99-1.23-.74-.66-1.23-1.47-1.38-1.72-.14-.25-.02-.38.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.4-.42-.56-.42l-.48-.01c-.17 0-.43.06-.66.31-.23.25-.86.85-.86 2.07 0 1.22.89 2.4 1.01 2.56.12.17 1.75 2.67 4.25 3.74.59.26 1.06.41 1.42.52.6.19 1.14.16 1.57.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></svg>
+          Falar no WhatsApp
         </a>
       </div>
     </div>
@@ -555,37 +596,40 @@
 </main>
 
 <!-- ============ FOOTER ============ -->
-<footer class="border-t border-white/10 bg-black text-white">
-  <div class="mx-auto flex max-w-6xl flex-col gap-6 px-5 py-10 sm:flex-row sm:items-center sm:justify-between">
-    <div class="flex items-center gap-2.5">
-      <img src="images/logotipo.png" alt="Fatura Passagem" class="h-8 w-8 rounded-full" />
-      <span class="font-extrabold text-white">Fatura Passagem</span>
+<footer class="bg-ink text-paper/70">
+  <div class="mx-auto grid max-w-6xl gap-8 px-5 py-12 sm:grid-cols-[1.4fr_1fr_1fr]">
+    <div>
+      <span class="font-display text-base font-semibold text-white">Fatura Passagem<span class="text-royal">.</span></span>
+      <p class="mt-2 max-w-[34ch] text-[0.85rem] leading-relaxed">Emissão de bilhetes e faturamento consolidado para agências que vendem passagens a clientes PJ.</p>
     </div>
-    <nav class="text-sm font-medium text-white/70">
-      <a href="/blog/" class="hover:text-white">Blog</a>
-    </nav>
-    <div class="text-sm text-white/60">
-      <p><span class="font-semibold text-white/85">Minimal Software</span> · Porto Alegre/RS</p>
+    <div class="text-[0.85rem] leading-relaxed">
+      <p class="text-paper/50">Contato</p>
+      <p class="mt-2"><a href="mailto:admin@passagem.app" class="hover:text-white">admin@passagem.app</a></p>
+      <p class="mt-1"><a href="#" data-wa class="hover:text-white">WhatsApp (65) 99982-6225</a></p>
+      <p class="mt-1"><a href="/blog/" class="hover:text-white">Blog</a></p>
+    </div>
+    <div class="text-[0.85rem] leading-relaxed">
+      <p class="text-paper/50">Minimal Software</p>
+      <p class="mt-2">Porto Alegre/RS</p>
       <p class="mt-1">CNPJ 66.763.413/0001-36</p>
-      <p class="mt-1">
-        <a href="mailto:admin@passagem.app" class="hover:text-white">admin@passagem.app</a>
-        <span class="mx-2 text-white/30">·</span>
-        <a href="#" data-wa class="hover:text-white">WhatsApp (65) 99982-6225</a>
-      </p>
     </div>
-    <p class="text-xs text-white/40">© <span id="year"></span> Fatura Passagem</p>
+  </div>
+  <div class="border-t border-white/10">
+    <p class="mx-auto max-w-6xl px-5 py-5 text-[0.8rem] text-paper/40">© <span id="year"></span> Fatura Passagem</p>
   </div>
 </footer>
 
 <!-- ============ LIGHTBOX ============ -->
-<div id="lightbox" class="fixed inset-0 z-[60] hidden items-center justify-center bg-navy-900/90 p-4 backdrop-blur-sm">
+<div id="lightbox" class="fixed inset-0 z-[60] hidden items-center justify-center bg-royal-900/92 p-4 backdrop-blur-sm">
   <button id="lightboxClose" class="absolute right-5 top-5 grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white transition hover:bg-white/20" aria-label="Fechar">
     <svg class="h-6 w-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" d="M6 6l12 12M18 6L6 18"/></svg>
   </button>
-  <img id="lightboxImg" src="" alt="" class="max-h-[88vh] max-w-6xl rounded-xl border border-white/10 shadow-2xl" />
+  <img id="lightboxImg" src="" alt="" class="max-h-[88vh] max-w-6xl rounded-lg border border-white/10 shadow-2xl" />
 </div>
 
 <script>
+  document.documentElement.classList.add('js');
+
   // WhatsApp links
   var WA_NUMBER = '5565999826225';
   var WA_TEXT = encodeURIComponent('Olá! Vim pela landing page do Fatura Passagem e quero saber mais sobre o sistema para minha agência.');
@@ -599,12 +643,26 @@
   // Year
   document.getElementById('year').textContent = new Date().getFullYear();
 
+  // Header hairline on scroll
+  var header = document.querySelector('[data-header]');
+  var onScroll = function () {
+    header.classList.toggle('shadow-[0_1px_0_0_rgba(18,22,29,0.12)]', window.scrollY > 8);
+  };
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
   // Mobile menu
   var menuBtn = document.getElementById('menuBtn');
   var mobileMenu = document.getElementById('mobileMenu');
-  menuBtn.addEventListener('click', function () { mobileMenu.classList.toggle('hidden'); });
+  menuBtn.addEventListener('click', function () {
+    var open = mobileMenu.classList.toggle('hidden') === false;
+    menuBtn.setAttribute('aria-expanded', String(open));
+  });
   mobileMenu.querySelectorAll('a').forEach(function (a) {
-    a.addEventListener('click', function () { mobileMenu.classList.add('hidden'); });
+    a.addEventListener('click', function () {
+      mobileMenu.classList.add('hidden');
+      menuBtn.setAttribute('aria-expanded', 'false');
+    });
   });
 
   // Lightbox
@@ -633,16 +691,21 @@
   lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLightbox(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeLightbox(); });
 
-  // Reveal on scroll
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (entry) {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('is-visible');
-        io.unobserve(entry.target);
-      }
+  // One motion moment: the statement lines print in, once, shortly after load.
+  // Content is visible by default; the effect is only armed when motion is welcome.
+  var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var sheet = document.querySelector('.sheet');
+  if (sheet && !reduce) {
+    var lines = sheet.querySelectorAll('.pl');
+    sheet.classList.add('armed');
+    requestAnimationFrame(function () {
+      lines.forEach(function (el, i) {
+        setTimeout(function () { el.classList.add('in'); }, 80 + i * 60);
+      });
     });
-  }, { threshold: 0.12 });
-  document.querySelectorAll('.reveal').forEach(function (el) { io.observe(el); });
+    // hard safety net: whatever happens, reveal everything within 1s
+    setTimeout(function () { lines.forEach(function (el) { el.classList.add('in'); }); }, 1000);
+  }
 </script>
 </body>
 </html>

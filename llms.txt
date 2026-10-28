@@ -3,11 +3,16 @@
 > Software web para agências de passagens terrestres e aéreas que vendem em volume para clientes PJ. A agência emite os bilhetes com taxa de serviço calculada automaticamente, controla devoluções (OCD) e, no fim do mês, fecha tudo em uma fatura consolidada por cliente, pronta para enviar por e-mail com boleto e nota fiscal anexados.
 
 - Feito por: Minimal Software (Porto Alegre/RS, Brasil) — CNPJ 66.763.413/0001-36
-- Site: https://fatura.passagem.app/
-- Blog: https://fatura.passagem.app/blog/
-- Acesso ao sistema: https://passagem.app
+- [Site](https://fatura.passagem.app/): página principal com recursos, telas e dúvidas
+- [Blog](https://fatura.passagem.app/blog/): artigos sobre faturamento de passagens
+- [Acesso ao sistema](https://passagem.app): login das agências
 - Contato: admin@passagem.app · WhatsApp +55 65 99982-6225
 - Idioma: português do Brasil
+
+## Artigos
+
+- [OCD: o que é Ordem de Crédito de Devolução](https://fatura.passagem.app/blog/ocd-ordem-credito-devolucao/): quando a OCD é gerada e como entra como desconto na fatura
+- [Como fechar o faturamento mensal sem planilha](https://fatura.passagem.app/blog/fechar-faturamento-mensal-agencia/): passo a passo da fatura consolidada por cliente PJ
 
 ## O que resolve
 

@@ -2,7 +2,7 @@
   "name": "fatura-passagem-site",
   "private": true,
   "scripts": {
-    "build:css": "tailwindcss -c tailwind.home.config.js -i src/tailwind.css -o assets/css/home.css --minify && tailwindcss -c tailwind.blog.config.js -i src/tailwind.css -o assets/css/blog.css --minify"
+    "build:css": "tailwindcss -c tailwind.home.config.js -i src/home.css -o assets/css/home.css --minify && tailwindcss -c tailwind.blog.config.js -i src/blog.css -o assets/css/blog.css --minify"
   },
   "devDependencies": {
     "tailwindcss": "3.4.17"
